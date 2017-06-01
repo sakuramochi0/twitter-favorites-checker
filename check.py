@@ -1,19 +1,20 @@
+#!/usr/bin/env python3
 import os
 import yaml
 import tweepy
 from get_tweepy import get_api
 
 filename = 'ids.yaml'
-id = 870250103004577792, # @love_mix_george
+user_id = 870250103004577792 # @love_mix_george
+api = get_api('sakuramochi_pre')
 
 def main():
-    api = get_api('sakuramochi_pre')
     ids = read_ids()
-    fs = api.favorites(id=id, count=200)
-    for f in fs:
-        if f.id not in ids:
-            notice(f)
-            add_id(f.id)
+    ts = api.favorites(user_id=user_id, count=200)
+    for t in ts:
+        if t.id not in ids:
+            notice(t)
+            add_id(t.id)
 
 def get_url(t):
     return 'https://twitter.com/{}/status/{}'.format(
